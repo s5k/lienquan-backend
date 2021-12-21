@@ -2,13 +2,18 @@ require('dotenv').config()
 import errorMiddleware from './middlewares/error.middleware'
 
 import express from 'express'
-import {api} from './routes/api'
+import cors from 'cors'
+import apiRoutes from './routes/api'
 
 const app = express()
 
+app.use(cors())
+
+app.use(express.static('public'))
+
 app.use(express.json())
 
-api(app)
+app.use('/api/v1', apiRoutes)
 
 // Error Handler Middleware
 app.use(errorMiddleware)

@@ -9,7 +9,6 @@ import { successResponse } from '../helpers/methods'
  */
 export const index = async (req: Request, res: Response): Promise<void> => {
     res.send(successResponse(
-        'Express JS API Boiler Plate working like a charm...',
         {
             data: 'here comes you payload...'
         }
@@ -24,7 +23,6 @@ export const index = async (req: Request, res: Response): Promise<void> => {
  */
 export const indexPost = async (req: Request, res: Response): Promise<void> => {
     res.send(successResponse(
-        'Express JS API Boiler Plate post api working like a charm...',
         {
             data: 'here comes you payload...',
             request: req.body,

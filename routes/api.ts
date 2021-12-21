@@ -1,13 +1,8 @@
-import {Express} from 'express-serve-static-core'
-import * as IndexController from '../controllers/index.controller'
-import {validate} from "../middlewares/validators/wrapper.validator";
-import {indexValidator} from "../middlewares/validators/index.validations";
+import { Router } from "express";
+import HomepageRoute from "./homepage";
 
-/**
- *
- * @param app
- */
-export const api = (app: Express) => {
-    app.get('/', IndexController.index)
-    app.post('/', validate(indexValidator), IndexController.indexPost)
-}
+const router = Router();
+
+router.use('/homepage', HomepageRoute)
+
+export default router

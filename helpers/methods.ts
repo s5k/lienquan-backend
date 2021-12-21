@@ -1,22 +1,20 @@
 interface responseType {
 	status: boolean,
-	message: string,
+	message?: string,
 	package?: Record<string, any>,
-	payload?: Record<string, any>
+	data?: Record<string, any>
 }
 
 
 /**
  *
- * @param message
  * @param payload
  * @returns {{package, message, status: boolean}}
  */
-const successResponse = (message: string, payload: Record<string, any>): responseType => {
+const successResponse = (payload: Record<string, any>): responseType => {
     return {
         status: true,
-        message: message,
-        package: payload
+        data: payload
     }
 }
 
@@ -33,7 +31,7 @@ const failResponse = (message: string, payload?: Record<string, any>): responseT
     }
 
     if (payload) {
-        response.payload = payload
+        response.data = payload
     }
 
     return response
