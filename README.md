@@ -9,3 +9,5 @@
 - [ ] Photos & Videos
 - [ ] Implement query params to query data
 - [x] Implement Knexjs for Query Builder
+- [ ] Implement JWT for Authentication
+- [ ] Implement throttle requests
