@@ -8,3 +8,4 @@
 - [ ] Teams page
 - [ ] Photos & Videos
 - [ ] Implement query params to query data
+- [x] Implement Knexjs for Query Builder
