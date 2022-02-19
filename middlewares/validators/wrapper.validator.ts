@@ -1,27 +1,20 @@
-import express from 'express'
-import {ValidationChain, validationResult} from 'express-validator';
+import { NextFunction, Request, Response } from 'express'
+import { AnyObjectSchema } from 'yup';
 import * as methods from '../../helpers/methods'
 
-/**
- * sequential processing, stops running validations chain if the previous one have failed.
- * @param validations
- */
-export const validate = (validations: ValidationChain[]) => {
-    return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        for (let validation of validations) {
-            const result = await validation.run(req);
+
+export const validate = (schema: AnyObjectSchema) => async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await schema.validate({
+            body: req.body,
+            query: req.query,
+            params: req.params,
+        });
+        return next();
+    } catch (err) {
+        return res.status(419).json(
             // @ts-ignore
-            if (result.errors.length) break;
-        }
-
-        const errors = validationResult(req);
-        if (errors.isEmpty()) {
-            return next();
-        }
-
-        // @ts-ignore
-        res.status(process.env.VALIDATION_FAIL_CODE).json(
-            methods.failResponse('Validation failed', errors.array())
+            methods.failResponse('Validation failed', [err.message])
         );
-    };
+    }
 };

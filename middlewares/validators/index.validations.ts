@@ -1,7 +1,7 @@
-import {body, ValidationChain} from 'express-validator'
+import * as Yup from "yup";
 
-export const indexValidator : ValidationChain[] = [
-    body('key')
-        .exists()
-        .withMessage('key is required')
-]
+export const indexValidator = Yup.object({
+    body: Yup.object({
+        key: Yup.string().required('key is required')
+    })
+})

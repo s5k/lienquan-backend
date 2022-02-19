@@ -1,8 +1,8 @@
-import { body, ValidationChain } from "express-validator";
+import { object, string } from "yup";
 
-export const loginValidator: ValidationChain[] = [
-    body('username').
-        exists().
-        isLength({min: 5}),
-    body('password').isLength({min: 5})
-]
+export const loginValidator = object({
+    body: object({
+        username: string().required(),
+        password: string().required()
+    })
+})
