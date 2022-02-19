@@ -1,9 +1,9 @@
 require('dotenv').config()
-import errorMiddleware from './middlewares/error.middleware'
+import errorMiddleware from './src/middlewares/error.middleware'
 
 import express from 'express'
 import cors from 'cors'
-import apiRoutes from './routes/api'
+import apiRoutes from './src/routes/api'
 
 const app = express()
 
