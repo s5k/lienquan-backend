@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "compile": "rimraf dist && tsc",
-    "start": "nodemon --exec ts-node server.ts --watch",
+    "start": "nodemon --exec ts-node --files server.ts --watch",
     "prepare": "husky install",
     "knex:migrate:make": "knex migrate:make",
     "knex:migrate:latest": "knex migrate:latest",
