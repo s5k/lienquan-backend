@@ -1,6 +1,8 @@
 
 ### Rebuild todo list 
 
+- [x] Admin authentication
+- [ ] refresh token api
 - [x] Homepage
 - [x] Prize page
 - [x] News page
@@ -9,5 +11,5 @@
 - [ ] Photos & Videos
 - [ ] Implement query params to query data
 - [x] Implement Knexjs for Query Builder
-- [ ] Implement JWT for Authentication
+- [x] Implement JWT for Authentication
 - [ ] Implement throttle requests

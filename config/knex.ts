@@ -10,8 +10,12 @@ export const config: Knex.Config = {
     database : process.env.DB_NAME
   },
   migrations: {
+    directory: './src/migrations',
     stub: 'config/knex-migration.stub',
     extension: "ts"
+  },
+  seeds: {
+      directory: './src/migrations/seeds'
   }
 }
 

@@ -1,13 +1,13 @@
 import { Knex } from "knex";
 
 interface UserInterface {
-    id: number
+    id?: number
     full_name: string
     email: string
     username: string
     password: string
-    created_at: string
-    updated_at: string
+    created_at?: string
+    updated_at?: string
 }
 
 // Declare types for select, insert, update
