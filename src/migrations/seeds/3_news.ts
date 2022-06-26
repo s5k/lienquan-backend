@@ -7,6 +7,7 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     await knex("news").insert([
         { 
+            id: 1,
             user_id: 1, 
             is_hot_news: true, 
             thumbnail: 'https://lienquan.garena.vn/files/upload/images/TrungAnh/AIC%202019/prize%20PC.png', 
