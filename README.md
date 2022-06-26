@@ -13,3 +13,4 @@
 - [x] Implement Knexjs for Query Builder
 - [x] Implement JWT for Authentication
 - [ ] Implement throttle requests
+- [ ] Forgot password

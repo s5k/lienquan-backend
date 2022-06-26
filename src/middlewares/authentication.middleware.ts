@@ -6,7 +6,6 @@ import { UserExpress } from "../@types/express";
 const authenticationMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     if (req.headers.authorization) {
         const token: string = req.headers.authorization?.split(" ")[1] || ''
-        console.log(token);
         try {
             const data = await Jwt.verify(token, process.env.APP_KEY as string)
             req.user = data as UserExpress
