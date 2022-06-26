@@ -25,8 +25,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             token: await Jwt.sign(user, process.env.APP_KEY as string)
         }))
     } catch (error) {
-        console.log(error);
-        
-        res.status(400).send(failResponse("Tài khoản hoặc mật khẩu không đúng!"))
+            console.log(error);
+            
+            res.status(400).send(failResponse("Tài khoản hoặc mật khẩu không đúng!"))
     }
 }
