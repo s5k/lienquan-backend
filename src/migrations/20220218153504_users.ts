@@ -4,7 +4,7 @@ exports.up = (knex: Knex) => knex.schema
     .createTable(
         'users', 
         (table) => {
-            table.increments('id')
+            table.increments('id').unsigned().primary()
             table.string('full_name')
             table.string('email').unique().notNullable()
             table.string('username').unique().notNullable()
