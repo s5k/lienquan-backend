@@ -1,127 +1,86 @@
 import { Request, Response } from "express";
-import { successResponse } from "../helpers/methods";
+import { db } from "../../config/knex";
+import { failResponse, successResponse } from "../helpers/methods";
 
-export const index = async (req: Request, res: Response):Promise<void> => {
-    res.send(successResponse(
-        [
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'Team Flash is a professional esports organization with FIFA Online 4, Fortnite, and Hearthstone teams competing in Singapore, and Arena of Valor, Free Fire, and League of Legends teams competing in Vietnam. Its Arena of Valor team was the runner-up of the 2018 AOV International Championship,[1] champions of the 2019 AOV World Cup[2] and 2019 AOV International Championship, and four-time winners of the regional Arena of Glory. Its FIFA Online 4 team is a two-time winner of the prestigious EA Champions Cup (EACC),[3][4] and its League of Legends team competes in the Vietnam Championship Series (VCS), the top-level league for the game in the country.',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    },
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-            {
-                logo: 'upload/images/flashlogo.png',
-                name: 'FLASH',
-                region: 'VN',
-                description: 'The Flash from Vietnam',
-                video_link: '',
-                code: 'FLC',
-                players: [
-                    {
-                        position: 1,
-                        image: 'upload/images/gau-avatar.png',
-                        lane: 'mid',
-                        name: 'GauBaki',
-                    }
-                ]
-            },
-        ]
-    ))
-}
+export const index = async (req: Request, res: Response): Promise<void> => {
+	const teams = await db()
+		.table("teams")
+		.select([
+			"id",
+			"logo",
+			"name",
+			"region",
+			"description",
+			"video_link",
+			"code",
+		]);
+
+	/** Avoid querys N+1 */
+	const team_ids = teams.map((team) => team.id);
+	const players = await db()
+		.table("players")
+		.select(["team_id", "position", "image", "lane", "name"])
+		.whereIn("team_id", team_ids)
+		.orderBy("position", "asc");
+	const teamList = teams.map((team) => {
+		return {
+			...team,
+			players: players.filter((player) => player.team_id === team.id),
+		};
+	});
+
+	res.send(successResponse(teamList));
+};
+
+export const update = async (req: Request, res: Response): Promise<void> => {
+	try {
+		await db()
+			.table("teams")
+			.update({
+				region: req.body.region,
+				logo: req.body.logo,
+				name: req.body.name,
+				description: req.body.description,
+				video_link: req.body.video_link,
+				code: req.body.code,
+				updated_at: new Date().toISOString().slice(0, 19).replace("T", " "),
+			})
+			.where("id", req.params.id);
+
+		res.status(202).send(successResponse([]));
+	} catch (error) {
+		res.send(failResponse("Không thể cập nhật teams!"));
+	}
+};
+
+export const create = async (req: Request, res: Response): Promise<void> => {
+	try {
+		await db()
+			.table("teams")
+			.insert({
+				region: req.body.region,
+				logo: req.body.logo,
+				name: req.body.name,
+				description: req.body.description,
+				video_link: req.body.video_link,
+				code: req.body.code,
+				created_at: new Date().toISOString().slice(0, 19).replace("T", " "),
+			});
+
+		res.status(201).send(successResponse([]));
+	} catch (error) {
+		console.log(error);
+
+		res.send(failResponse("Không thể cập nhật teams!"));
+	}
+};
+
+export const destroy = async (req: Request, res: Response): Promise<void> => {
+	try {
+		await db().table("teams").where("id", req.params.id).delete();
+
+		res.status(204).send(successResponse([]));
+	} catch (error) {
+		res.send(failResponse("Xóa tin thất bại!"));
+	}
+};
