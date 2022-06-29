@@ -1,5 +1,4 @@
-
-### Rebuild todo list 
+### Rebuild todo list
 
 - [x] Admin authentication
 - [ ] refresh token api
@@ -14,3 +13,5 @@
 - [x] Implement JWT for Authentication
 - [ ] Implement throttle requests
 - [ ] Forgot password
+- [ ] Refactor query builder to repository for clean code
+- [ ] Refactor controllers for to not "reinvent the wheel"
