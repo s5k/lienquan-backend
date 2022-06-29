@@ -11,7 +11,7 @@
 - [ ] Implement query params to query data
 - [x] Implement Knexjs for Query Builder
 - [x] Implement JWT for Authentication
-- [ ] Implement throttle requests
+- [x] Implement throttle requests
 - [ ] Forgot password
 - [ ] Implement Upload image API
 - [x] Refactor query builder to repository for clean code

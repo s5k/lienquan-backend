@@ -1,21 +1,28 @@
-require('dotenv').config()
-import errorMiddleware from './src/middlewares/error.middleware'
+require("dotenv").config();
+import { rateLimit } from "express-rate-limit";
+import errorMiddleware from "./src/middlewares/error.middleware";
 
-import express from 'express'
-import cors from 'cors'
-import apiRoutes from './src/routes/api'
+import express from "express";
+import cors from "cors";
+import apiRoutes from "./src/routes/api";
 
-const app = express()
+const limiter = rateLimit({
+	max: 100,
+	windowMs: 60 * 60 * 1000,
+	message: "Quá nhiều lượt truy cập từ IP này, vui lòng thử lại sau!",
+});
 
-app.use(cors())
+const app = express();
 
-app.use(express.static('public'))
+app.use(cors());
 
-app.use(express.json())
+app.use(express.static("public"));
 
-app.use('/api/v1', apiRoutes)
+app.use(express.json());
+
+app.use("/api/v1", limiter, apiRoutes);
 
 // Error Handler Middleware
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
-export default app
+export default app;
