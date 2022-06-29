@@ -1,9 +1,14 @@
 import { Router as ExpressRouter } from "express";
-import * as AuthenticationController from "../controllers/authentication.controller";
+import AuthenticationController from "../controllers/authentication.controller";
 import { loginValidator } from "../middlewares/validators/login.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
-const router = ExpressRouter()
+const router = ExpressRouter();
+const instanceAuthenticationController = AuthenticationController();
 
-router.post('/login', validate(loginValidator), AuthenticationController.login)
+router.post(
+	"/login",
+	validate(loginValidator),
+	instanceAuthenticationController.login
+);
 
 export default router;

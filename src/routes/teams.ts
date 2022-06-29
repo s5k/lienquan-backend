@@ -1,5 +1,5 @@
 import { Router as ExpressRouter } from "express";
-import * as TeamsController from "../controllers/teams.controller";
+import TeamsController from "../controllers/teams.controller";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import {
 	createTeamsValidator,
@@ -7,20 +7,25 @@ import {
 } from "../middlewares/validators/teams.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
 const router = ExpressRouter();
+const instanceTeamsController = TeamsController();
 
-router.get("/", TeamsController.index);
+router.get("/", instanceTeamsController.index);
 router.post(
 	"/",
 	authenticationMiddleware,
 	validate(createTeamsValidator),
-	TeamsController.create
+	instanceTeamsController.create
 );
 router.put(
 	"/:id",
 	authenticationMiddleware,
 	validate(updateTeamsValidator),
-	TeamsController.update
+	instanceTeamsController.update
 );
-router.delete("/:id", authenticationMiddleware, TeamsController.destroy);
+router.delete(
+	"/:id",
+	authenticationMiddleware,
+	instanceTeamsController.destroy
+);
 
 export default router;

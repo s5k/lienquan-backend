@@ -1,11 +1,17 @@
 import { Router as ExpressRouter } from "express";
-import * as HomepageController from "../controllers/homepage.controller";
+import HomepageController from "../controllers/homepage.controller";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import { settingsValidator } from "../middlewares/validators/settings.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
-const router = ExpressRouter()
+const router = ExpressRouter();
+const instanceHomepageController = HomepageController();
 
-router.get('/', HomepageController.index)
-router.patch('/', authenticationMiddleware, validate(settingsValidator), HomepageController.update)
+router.get("/", instanceHomepageController.index);
+router.patch(
+	"/",
+	authenticationMiddleware,
+	validate(settingsValidator),
+	instanceHomepageController.update
+);
 
 export default router;

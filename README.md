@@ -15,3 +15,4 @@
 - [ ] Forgot password
 - [ ] Refactor query builder to repository for clean code
 - [ ] Refactor controllers for to not "reinvent the wheel"
+- [ ] Implement FormRequest to get allowed fields and validator fields

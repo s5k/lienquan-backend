@@ -1,7 +1,8 @@
 import { Router as ExpressRouter } from "express";
-import * as MediaController from "../controllers/media.controller";
+import MediaController from "../controllers/media.controller";
 const router = ExpressRouter();
+const instanceMediaController = MediaController();
 
-router.get("/", MediaController.index);
+router.get("/", instanceMediaController.index);
 
 export default router;

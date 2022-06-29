@@ -1,5 +1,5 @@
 import { Router as ExpressRouter } from "express";
-import * as NewsController from "../controllers/news.controller";
+import NewsController from "../controllers/news.controller";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import {
 	createNewsValidator,
@@ -7,22 +7,22 @@ import {
 } from "../middlewares/validators/news.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
 const router = ExpressRouter();
-
-router.get("/", NewsController.index);
-router.get("/:id", NewsController.detail);
+const instanceNewsController = NewsController();
+router.get("/", instanceNewsController.index);
+router.get("/:id", instanceNewsController.detail);
 
 router.post(
 	"/",
 	authenticationMiddleware,
 	validate(createNewsValidator),
-	NewsController.create
+	instanceNewsController.create
 );
 router.put(
 	"/:id",
 	authenticationMiddleware,
 	validate(updateNewsValidator),
-	NewsController.update
+	instanceNewsController.update
 );
-router.delete("/:id", authenticationMiddleware, NewsController.destroy);
+router.delete("/:id", authenticationMiddleware, instanceNewsController.destroy);
 
 export default router;

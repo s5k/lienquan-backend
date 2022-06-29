@@ -1,11 +1,17 @@
 import { Router as ExpressRouter } from "express";
-import * as PrizeController from "../controllers/prize.controller";
+import PrizeController from "../controllers/prize.controller";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import { settingsValidator } from "../middlewares/validators/settings.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
 const router = ExpressRouter();
+const instancePrizeController = PrizeController();
 
-router.get("/", PrizeController.index);
-router.patch("/", authenticationMiddleware, validate(settingsValidator), PrizeController.update)
+router.get("/", instancePrizeController.index);
+router.patch(
+	"/",
+	authenticationMiddleware,
+	validate(settingsValidator),
+	instancePrizeController.update
+);
 
 export default router;

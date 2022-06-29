@@ -1,5 +1,5 @@
 import { Router as ExpressRouter } from "express";
-import * as EventsController from "../controllers/events.controller";
+import EventsController from "../controllers/events.controller";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import {
 	createEventsValidator,
@@ -7,21 +7,26 @@ import {
 } from "../middlewares/validators/events.validations";
 import { validate } from "../middlewares/validators/wrapper.validator";
 const router = ExpressRouter();
+const InstanceEventConntroller = EventsController();
 
-router.get("/", EventsController.index);
+router.get("/", InstanceEventConntroller.index);
 
 router.post(
 	"/",
 	authenticationMiddleware,
 	validate(createEventsValidator),
-	EventsController.create
+	InstanceEventConntroller.create
 );
 router.put(
 	"/:id",
 	authenticationMiddleware,
 	validate(updateEventsValidator),
-	EventsController.update
+	InstanceEventConntroller.update
 );
-router.delete("/:id", authenticationMiddleware, EventsController.destroy);
+router.delete(
+	"/:id",
+	authenticationMiddleware,
+	InstanceEventConntroller.destroy
+);
 
 export default router;
