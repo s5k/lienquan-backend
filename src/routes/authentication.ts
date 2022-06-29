@@ -11,4 +11,6 @@ router.post(
 	instanceAuthenticationController.login
 );
 
+router.post("/refresh_token", instanceAuthenticationController.refreshJwtToken);
+
 export default router;

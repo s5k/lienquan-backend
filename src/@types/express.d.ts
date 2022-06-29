@@ -7,6 +7,8 @@ interface UserExpress {
 	username: string;
 	created_at: string;
 	updated_at: string;
+	iat?: number;
+	exp?: number;
 }
 
 declare global {
