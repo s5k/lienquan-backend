@@ -13,8 +13,6 @@ export const validate =
 			});
 			return next();
 		} catch (err) {
-			console.log(err);
-
 			return res.status(419).json(
 				// @ts-ignore
 				methods.failResponse("Validation failed", [err.message])

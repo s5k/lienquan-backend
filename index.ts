@@ -6,6 +6,8 @@ import express from "express";
 import cors from "cors";
 import apiRoutes from "./src/routes/api";
 
+import "./src/queues/workers/worker.queue";
+
 const limiter = rateLimit({
 	max: 100,
 	windowMs: 60 * 60 * 1000,

@@ -6,6 +6,7 @@ import { failResponse, successResponse } from "../helpers/methods";
 import BaseController from "./base.controller";
 import usersModel from "../models/users.model";
 import { UserExpress } from "../@types/express";
+import forgotPasswordQueue from "../queues/forgotPassword.queue";
 
 class AuthenticationController extends BaseController {
 	login = async (req: Request, res: Response): Promise<void> => {
@@ -42,7 +43,7 @@ class AuthenticationController extends BaseController {
 					token: await Jwt.sign(user, process.env.APP_KEY as string, {
 						expiresIn: process.env.TOKEN_EXPIRES,
 					}),
-					refreshToken: Jwt.sign(
+					refreshToken: await Jwt.sign(
 						user,
 						process.env.REFRESH_TOKEN_KEY as string,
 						{
@@ -94,6 +95,62 @@ class AuthenticationController extends BaseController {
 			console.log(error);
 
 			res.status(400).send(failResponse("Không thể khởi tạo Token!"));
+		}
+	};
+
+	forgotPassword = async (req: Request, res: Response) => {
+		try {
+			const { email } = req.body;
+			const queueForgotPassword = forgotPasswordQueue();
+			const user = await this.model
+				.getQueryBuilder()
+				.table("users")
+				.select("email")
+				.where("email", email)
+				.first();
+
+			if (user) {
+				queueForgotPassword.add("send_mail", { email });
+			}
+
+			res
+				.status(201)
+				.send(
+					successResponse([
+						"Đã gửi 1 mail khôi phục mật khẩu tới email của bạn!",
+					])
+				);
+		} catch (error) {
+			console.log(error);
+
+			// Always send success case for anti brute force attack
+			res
+				.status(201)
+				.send(
+					successResponse([
+						"Đã gửi 1 mail khôi phục mật khẩu tới email của bạn!",
+					])
+				);
+		}
+	};
+
+	resetPassword = async (req: Request, res: Response) => {
+		try {
+			const { new_password, token } = req.body;
+			const payload = await Jwt.verify(token, process.env.APP_KEY as string);
+
+			if (payload) {
+				const user = payload as UserExpress;
+
+				await this.model.update(
+					{ password: await Bcrypt.hash(new_password, 10) },
+					{ email: user.email }
+				);
+			}
+
+			res.status(201).send(successResponse(["Thay đổi mật khẩu thành công"]));
+		} catch (error) {
+			res.status(400).send(failResponse("Thay đổi mật khẩu thất bại!"));
 		}
 	};
 }
