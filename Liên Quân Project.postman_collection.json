@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "31957b6f-dc69-4b47-9d3b-f0576e6667ff",
+		"name": "Liên Quân Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Homepage",
+			"item": [
+				{
+					"name": "Get Homepage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/homepage/",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"homepage",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Homepage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": [\n        {\n            \"key\": \"logo_src\",\n            \"value\": \"upload/images/cup-aic.png\"\n        },\n        {\n            \"key\": \"watch_now_url\",\n            \"value\": \"https://lienquan.garena.vn/\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/homepage/",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"homepage",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "Get News",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/news",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/news/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_hot_news\": 1,\n    \"thumbnail\": \"upload/images/prize-PC.png\",\n    \"title\": \"Giải đấu AIC 2019 chính thức bắt đầu.\",\n    \"description\": \"Giải đấu sẽ quy tụ nhiêu nhân tài tham gia, cùng đón xem...\",\n    \"body\": \"Arena of Valor International Championship (AIC) 2019\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/news",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_hot_news\": 1,\n    \"thumbnail\": \"upload/images/prize-PC.png\",\n    \"title\": \"Giải đấu AIC 2019 chính thức bắt đầu.\",\n    \"description\": \"Giải đấu sẽ quy tụ nhiêu nhân tài tham gia, cùng đón xem...\",\n    \"body\": \"Arena of Valor International Championship (AIC) 2019\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/news/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/news/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prize",
+			"item": [
+				{
+					"name": "Get Prize",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/prize",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"prize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Prize",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": [\n        {\n            \"key\": \"prize_image\",\n            \"value\": \"upload/images/prize_image.png\"\n        },\n        {\n            \"key\": \"prize_image_mobile\",\n            \"value\": \"upload/images/prize_image_mo.png\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/prize",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"prize"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/events",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"link\": \"https://lienquan.garena.vn/tin-tuc/chi-tiet-ban-cap-nhat-vuong-quoc-rong\",\n    \"title\": \"CHI TIẾT BẢN CẬP NHẬT VƯƠNG QUỐC RỒNG\",\n    \"thumbnail\": \"upload/images/sukien.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/events",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/events/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"link\": \"https://lienquan.garena.vn/tin-tuc/chi-tiet-ban-cap-nhat-vuong-quoc-rong\",\n    \"title\": \"CHI TIẾT BẢN CẬP NHẬT VƯƠNG QUỐC RỒNG\",\n    \"thumbnail\": \"upload/images/sukien.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/events/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Get Teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/teams",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"region\": \"VN\",\n    \"logo\": \"upload/images/flashlogo.png\",\n    \"name\": \"FLASH\",\n    \"description\":\n        \"Team Flash is a professional esports organization with FIFA Online 4, Fortnite, and Hearthstone teams competing in Singapore, and Arena of Valor, Free Fire, and League of Legends teams competing in Vietnam.\",\n    \"video_link\": \"lienquan.garena.vn\",\n    \"code\": \"FLC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/teams",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"region\": \"VN\",\n    \"logo\": \"upload/images/flashlogo.png\",\n    \"name\": \"FLASH\",\n    \"description\":\n        \"Team Flash is a professional esports organization with FIFA Online 4, Fortnite, and Hearthstone teams competing in Singapore, and Arena of Valor, Free Fire, and League of Legends teams competing in Vietnam.\",\n    \"video_link\": \"lienquan.garena.vn\",\n    \"code\": \"FLC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/teams/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"teams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/teams/1",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"teams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Get Media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_api}}/media",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"danuser\",\n    \"password\": \"defaultpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/auth/login",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZnVsbF9uYW1lIjoiRGFuIiwiZW1haWwiOiJkYW5AZ21haWwuY29tIiwidXNlcm5hbWUiOiJkYW51c2VyIiwiY3JlYXRlZF9hdCI6bnVsbCwidXBkYXRlZF9hdCI6bnVsbCwiaWF0IjoxNjU2NTEwNTU2LCJleHAiOjE2NTY1OTY5NTZ9.7xmxJO2ZjLZ9aawpeBtXIg88tJOqnGHCk1Es_ipERD4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/auth/refresh_token",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"auth",
+								"refresh_token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"dan@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/auth/forgot_password",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"auth",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Reset Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbkBnbWFpbC5jb20iLCJpYXQiOjE2NTY1Njk1NjcsImV4cCI6MTY1NjU3MzE2N30.4eH-l-dj7ugsTOqq4S6H_dlKtox8LLuJOVt-iEwEx2U\",\n    \"new_password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api}}/auth/reset_password",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"auth",
+								"reset_password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/home/hydra/Downloads/autodraw 12_20_2021.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_api}}/files/upload_image",
+							"host": [
+								"{{base_api}}"
+							],
+							"path": [
+								"files",
+								"upload_image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
