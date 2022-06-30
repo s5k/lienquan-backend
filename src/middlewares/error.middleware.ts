@@ -1,5 +1,6 @@
-import type { ErrorRequestHandler } from "express"
-import * as methods from '../helpers/methods'
+import type { ErrorRequestHandler } from "express";
+import { config } from "../../config/environment";
+import * as methods from "../helpers/methods";
 
 /**
  *
@@ -9,8 +10,15 @@ import * as methods from '../helpers/methods'
  * @param next
  * @returns {*}
  */
-const errorMiddleware: ErrorRequestHandler = (error, req, res, next): Record<string, any> => {
-    return res.status(Number(process.env.EXCEPTION_CODE)).send(methods.failResponse(error.message))
-}
+const errorMiddleware: ErrorRequestHandler = (
+	error,
+	req,
+	res,
+	next
+): Record<string, any> => {
+	return res
+		.status(Number(config.EXCEPTION_CODE))
+		.send(methods.failResponse(error.message));
+};
 
-export default errorMiddleware
+export default errorMiddleware;

@@ -7,6 +7,7 @@ import BaseController from "./base.controller";
 import usersModel from "../models/users.model";
 import { UserExpress } from "../@types/express";
 import forgotPasswordQueue from "../queues/forgotPassword.queue";
+import { config } from "../../config/environment";
 
 class AuthenticationController extends BaseController {
 	login = async (req: Request, res: Response): Promise<void> => {
@@ -40,14 +41,14 @@ class AuthenticationController extends BaseController {
 
 			res.send(
 				successResponse({
-					token: await Jwt.sign(user, process.env.APP_KEY as string, {
-						expiresIn: process.env.TOKEN_EXPIRES,
+					token: await Jwt.sign(user, config.APP_KEY as string, {
+						expiresIn: config.TOKEN_EXPIRES,
 					}),
 					refreshToken: await Jwt.sign(
 						user,
-						process.env.REFRESH_TOKEN_KEY as string,
+						config.REFRESH_TOKEN_KEY as string,
 						{
-							expiresIn: process.env.REFRESH_TOKEN_EXPIRES,
+							expiresIn: config.REFRESH_TOKEN_EXPIRES,
 						}
 					),
 				})
@@ -63,7 +64,7 @@ class AuthenticationController extends BaseController {
 		try {
 			const payload = await Jwt.verify(
 				req.body.refresh_token,
-				process.env.REFRESH_TOKEN_KEY
+				config.REFRESH_TOKEN_KEY
 			);
 
 			if (payload) {
@@ -85,8 +86,8 @@ class AuthenticationController extends BaseController {
 
 				res.send(
 					successResponse({
-						token: await Jwt.sign(user, process.env.APP_KEY as string, {
-							expiresIn: process.env.TOKEN_EXPIRES,
+						token: await Jwt.sign(user, config.APP_KEY as string, {
+							expiresIn: config.TOKEN_EXPIRES,
 						}),
 					})
 				);
@@ -137,7 +138,7 @@ class AuthenticationController extends BaseController {
 	resetPassword = async (req: Request, res: Response) => {
 		try {
 			const { new_password, token } = req.body;
-			const payload = await Jwt.verify(token, process.env.APP_KEY as string);
+			const payload = await Jwt.verify(token, config.APP_KEY as string);
 
 			if (payload) {
 				const user = payload as UserExpress;

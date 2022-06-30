@@ -6,6 +6,7 @@ import TeamsRoute from "./teams";
 import AuthRoute from "./authentication";
 import PrizeRoute from "./prize";
 import MediaRoute from "./media";
+import UploadRoute from "./upload";
 
 const router = Router();
 router.use("/auth", AuthRoute);
@@ -15,5 +16,6 @@ router.use("/events", EventsRoute);
 router.use("/teams", TeamsRoute);
 router.use("/prize", PrizeRoute);
 router.use("/media", MediaRoute);
+router.use("/files", UploadRoute);
 
 export default router;

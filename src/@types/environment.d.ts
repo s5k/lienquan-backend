@@ -13,6 +13,8 @@ declare global {
 			MAIL_PORT: number;
 			MAIL_USER: string;
 			MAIL_PASS: string;
+			UPLOAD_MAX_SIZE: number;
+			EXCEPTION_CODE: number;
 			NODE_ENV: "development" | "production";
 		}
 	}

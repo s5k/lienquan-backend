@@ -1,5 +1,6 @@
 import { Job, QueueScheduler, Worker } from "bullmq";
 import Jwt from "jsonwebtoken";
+import { config } from "../../../config/environment";
 import mail from "../../../config/mail";
 import { redisConfig } from "../../../config/redis";
 
@@ -11,19 +12,18 @@ import { redisConfig } from "../../../config/redis";
 async function sendMailForgotPassword(job: Job) {
 	const token = await Jwt.sign(
 		{ email: job.data.email },
-		process.env.APP_KEY as string,
+		config.APP_KEY as string,
 		{
 			expiresIn: "1h",
 		}
 	);
 	(await mail()).sendMail({
-		from: process.env.MAIL_FROM,
+		from: config.MAIL_FROM,
 		to: `${job.data.email}, ${job.data.email}`,
 		subject: "Khôi phục mật khẩu",
-		html:
-			"<p>Vui lòng sao chép đoạn mã này <b>" +
-			token +
-			"</b> để thay đổi mật khẩu. Nếu không phải là bạn vui lòng bỏ qua</p>",
+		html: `
+			<p>Vui lòng sao chép đoạn mã này <b>${token}</b> để thay đổi mật khẩu. Nếu không phải là bạn vui lòng bỏ qua.</p>
+			`,
 	});
 }
 

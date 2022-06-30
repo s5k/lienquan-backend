@@ -2,6 +2,7 @@ import Jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { failResponse } from "../helpers/methods";
 import { UserExpress } from "../@types/express";
+import { config } from "../../config/environment";
 
 const authenticationMiddleware = async (
 	req: Request,
@@ -11,7 +12,7 @@ const authenticationMiddleware = async (
 	if (req.headers.authorization) {
 		const token: string = req.headers.authorization?.split(" ")[1] || "";
 		try {
-			const data = await Jwt.verify(token, process.env.APP_KEY as string);
+			const data = await Jwt.verify(token, config.APP_KEY as string);
 			req.user = data as UserExpress;
 			return next();
 		} catch (error) {
