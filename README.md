@@ -1,4 +1,18 @@
-### Rebuild todo list
+# Liên Quân Backend
+
+This repository is writing for Arena of Valor International Championship 2019, to get data via API and Admin modification of the data.
+
+## Description
+
+In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication), Model-Controller design pattern, and used Bullmq to manage Queue data.
+
+## Requiments
+
+- Node v16
+- MySQL 8.0
+- Redis
+
+## Rebuild todo list
 
 - [x] Admin authentication
 - [x] refresh token api
@@ -15,3 +29,8 @@
 - [x] Implement Upload image API
 - [x] Refactor query builder to repository for clean code
 - [x] Refactor controllers for to not "reinvent the wheel"
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Please make sure to update tests as appropriate.
