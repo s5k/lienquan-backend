@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import settingsModel from "../models/settings.model";
 import BaseController from "./base.controller";
 import { UploadedFile } from "express-fileupload";
 import { failResponse, successResponse } from "../helpers/methods";
@@ -24,4 +23,4 @@ class uploadFile extends BaseController {
 	};
 }
 
-export default () => new uploadFile(settingsModel());
+export default () => new uploadFile();

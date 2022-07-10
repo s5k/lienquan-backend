@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
-import newsModel from "../models/news.model";
+import NewsModel from "../models/news.model";
 import BaseController from "./base.controller";
 
 class NewsController extends BaseController {
+	@Inject("NewsModel")
+	protected model!: NewsModel;
+
 	index = async (req: Request, res: Response): Promise<void> => {
 		const listNews = await this.model
 			.getQueryBuilder()
@@ -81,4 +85,4 @@ class NewsController extends BaseController {
 	};
 }
 
-export default () => new NewsController(newsModel());
+export default () => new NewsController();

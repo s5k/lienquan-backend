@@ -1,7 +1,9 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () =>
-	new BaseModel("news", [
+@Injectable("NewsModel", [
+	"news",
+	[
 		"user_id",
 		"is_hot_news",
 		"thumbnail",
@@ -10,4 +12,6 @@ export default () =>
 		"body",
 		"create_time",
 		"updated_at",
-	]);
+	],
+])
+export default class NewsModel extends BaseModel {}

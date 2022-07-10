@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
 import BaseModel from "../models/base.model";
 
-export default class BaseController {
-	protected model: BaseModel;
-
-	constructor(model: BaseModel) {
-		this.model = model;
-	}
+export default abstract class BaseController {
+	@Inject("BaseModel")
+	protected model!: BaseModel;
 
 	/**
 	 * index

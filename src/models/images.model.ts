@@ -1,3 +1,5 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () => new BaseModel("images", ["media_id", "path"]);
+@Injectable("ImagesModel", ["images", ["media_id", "path"]])
+export default class ImagesModel extends BaseModel {}

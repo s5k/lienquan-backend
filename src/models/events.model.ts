@@ -1,3 +1,5 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () => new BaseModel("events", ["link", "thumbnail", "title"]);
+@Injectable("EventsModel", ["events", ["link", "thumbnail", "title"]])
+export default class Events extends BaseModel {}

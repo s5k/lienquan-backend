@@ -1,15 +1,18 @@
 import Bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
 import { Request, Response } from "express";
-import { db } from "../../config/knex";
 import { failResponse, successResponse } from "../helpers/methods";
 import BaseController from "./base.controller";
-import usersModel from "../models/users.model";
 import { UserExpress } from "../@types/express";
 import forgotPasswordQueue from "../queues/forgotPassword.queue";
 import { config } from "../../config/environment";
+import { Inject } from "../decorators/classes/inject.classes";
+import UsersModel from "../models/users.model";
 
 class AuthenticationController extends BaseController {
+	@Inject("UsersModel")
+	protected model!: UsersModel;
+
 	login = async (req: Request, res: Response): Promise<void> => {
 		try {
 			const user = await this.model
@@ -156,4 +159,4 @@ class AuthenticationController extends BaseController {
 	};
 }
 
-export default () => new AuthenticationController(usersModel());
+export default () => new AuthenticationController();

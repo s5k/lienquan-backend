@@ -1,4 +1,8 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () =>
-	new BaseModel("settings", ["key", "value", "created_at", "updated_at"]);
+@Injectable("SettingsModel", [
+	"settings",
+	["key", "value", "created_at", "updated_at"],
+])
+export default class SettingsModel extends BaseModel {}

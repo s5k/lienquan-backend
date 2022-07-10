@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+import { Inject } from "../decorators/classes/inject.classes";
 import { successResponse } from "../helpers/methods";
-import teamsModel from "../models/teams.model";
+import TeamsModel from "../models/teams.model";
 import BaseController from "./base.controller";
 
 class TeamsController extends BaseController {
+	@Inject("TeamsModel")
+	protected model!: TeamsModel;
+
 	index = async (req: Request, res: Response): Promise<void> => {
 		const teams = await this.model
 			.getQueryBuilder()
@@ -37,4 +41,4 @@ class TeamsController extends BaseController {
 	};
 }
 
-export default () => new TeamsController(teamsModel());
+export default () => new TeamsController();

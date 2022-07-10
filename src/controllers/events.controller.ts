@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
-import eventsModel from "../models/events.model";
+import EventsModel from "../models/events.model";
 import BaseController from "./base.controller";
 
 class EventController extends BaseController {
+	@Inject("EventsModel")
+	protected model!: EventsModel;
+
 	/**
 	 * index
 	 */
@@ -27,4 +31,4 @@ class EventController extends BaseController {
 		}
 	};
 }
-export default () => new EventController(eventsModel());
+export default () => new EventController();

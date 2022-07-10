@@ -1,12 +1,8 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () =>
-	new BaseModel("players", [
-		"team_id",
-		"position",
-		"image",
-		"lane",
-		"name",
-		"create_time",
-		"updated_at",
-	]);
+@Injectable("PlayersModel", [
+	"players",
+	["team_id", "position", "image", "lane", "name", "create_time", "updated_at"],
+])
+export default class PlayersModel extends BaseModel {}

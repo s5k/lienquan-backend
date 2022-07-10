@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import { SettingInterface } from "../@types/settings";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
-import settingsModel from "../models/settings.model";
+import SettingsModel from "../models/settings.model";
 import BaseController from "./base.controller";
 
 class PrizeController extends BaseController {
+	@Inject("SettingsModel")
+	protected model!: SettingsModel;
+
 	index = async (req: Request, res: Response): Promise<void> => {
 		const data: any = {};
 		const rows = await this.model
@@ -46,4 +50,4 @@ class PrizeController extends BaseController {
 	};
 }
 
-export default () => new PrizeController(settingsModel());
+export default () => new PrizeController();

@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import { SettingInterface } from "../@types/settings";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
-import settingsModel from "../models/settings.model";
+import SettingsModel from "../models/settings.model";
 import BaseController from "./base.controller";
 
 class HomepageController extends BaseController {
+	@Inject("SettingsModel")
+	protected model!: SettingsModel;
+
 	index = async (req: Request, res: Response): Promise<void> => {
 		this.model
 			.getQueryBuilder()
@@ -48,4 +52,4 @@ class HomepageController extends BaseController {
 	};
 }
 
-export default () => new HomepageController(settingsModel());
+export default () => new HomepageController();

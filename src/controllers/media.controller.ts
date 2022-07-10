@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+import { Inject } from "../decorators/classes/inject.classes";
 import { failResponse, successResponse } from "../helpers/methods";
-import mediaModel from "../models/media.model";
+import MediaModel from "../models/media.model";
 import BaseController from "./base.controller";
 
 class MediaController extends BaseController {
+	@Inject("MediaModel")
+	protected model!: MediaModel;
+
 	index = async (req: Request, res: Response): Promise<void> => {
 		try {
 			const medias = await this.model
@@ -35,4 +39,4 @@ class MediaController extends BaseController {
 	};
 }
 
-export default () => new MediaController(mediaModel());
+export default () => new MediaController();

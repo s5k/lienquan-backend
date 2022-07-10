@@ -1,10 +1,8 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () =>
-	new BaseModel("media", [
-		"is_video",
-		"name",
-		"link",
-		"create_time",
-		"updated_at",
-	]);
+@Injectable("MediaModel", [
+	"media",
+	["is_video", "name", "link", "create_time", "updated_at"],
+])
+export default class MediaModel extends BaseModel {}

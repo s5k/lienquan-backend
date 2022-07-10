@@ -29,6 +29,8 @@ In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication
 - [x] Implement Upload image API
 - [x] Refactor query builder to repository for clean code
 - [x] Refactor controllers for to not "reinvent the wheel"
+- [x] Implement Dependency Injection
+- [ ] Use Decorators of Typescript for more readable and reusable
 
 ## Contributing
 

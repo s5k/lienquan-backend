@@ -1,7 +1,9 @@
+import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-export default () =>
-	new BaseModel("teams", [
+@Injectable("TeamsModel", [
+	"teams",
+	[
 		"region",
 		"logo",
 		"name",
@@ -10,4 +12,6 @@ export default () =>
 		"code",
 		"create_time",
 		"updated_at",
-	]);
+	],
+])
+export default class TeamsModel extends BaseModel {}

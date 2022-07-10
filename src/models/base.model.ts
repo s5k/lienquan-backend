@@ -1,11 +1,13 @@
 import _ from "lodash";
 import { db } from "../../config/knex";
+import { Injectable } from "../decorators/classes/injectable.classes";
 
 enum PrepareTypeEnum {
 	CREATE_NEW,
 	UPDATE,
 }
 
+@Injectable("BaseModel")
 export default class BaseModel {
 	protected tableName: string;
 
