@@ -9,7 +9,7 @@ export default class NewsModel extends BaseModel {
 		"title",
 		"description",
 		"body",
-		"create_time",
+		"created_at",
 		"updated_at",
 	];
 }

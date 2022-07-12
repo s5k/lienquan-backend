@@ -8,7 +8,7 @@ export default class PlayersModel extends BaseModel {
 		"image",
 		"lane",
 		"name",
-		"create_time",
+		"created_at",
 		"updated_at",
 	];
 }

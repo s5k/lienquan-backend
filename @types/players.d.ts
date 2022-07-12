@@ -23,7 +23,7 @@ declare module "knex/types/tables" {
 				PlayersInterface,
 				"team_id" | "position" | "image" | "lane" | "name"
 			> &
-				Partial<Pick<PlayersInterface, "create_time" | "updated_at">>,
+				Partial<Pick<PlayersInterface, "created_at" | "updated_at">>,
 			// this line allow you update all fields, except "id" field
 			Partial<Omit<PlayersInterface, "id">>
 		>;

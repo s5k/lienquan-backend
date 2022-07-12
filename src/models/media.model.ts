@@ -6,7 +6,7 @@ export default class MediaModel extends BaseModel {
 		"is_video",
 		"name",
 		"link",
-		"create_time",
+		"created_at",
 		"updated_at",
 	];
 }

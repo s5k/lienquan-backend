@@ -72,7 +72,9 @@ export default abstract class BaseModel {
 	 * create
 	 */
 	public create(data: any): Promise<void> {
-		return db().table(this.tableName).insert(this.prepareFields(data));
+		return db()
+			.table(this.tableName)
+			.insert(this.prepareFields(data, PrepareTypeEnum.CREATE_NEW));
 	}
 
 	/**
@@ -100,7 +102,7 @@ export default abstract class BaseModel {
 		return db()
 			.table(this.tableName)
 			.where(whereData)
-			.update(this.prepareFields(data));
+			.update(this.prepareFields(data, PrepareTypeEnum.UPDATE));
 	}
 
 	/**

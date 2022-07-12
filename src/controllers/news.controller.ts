@@ -35,7 +35,7 @@ export default class NewsController extends BaseController {
 				"thumbnail",
 				"title",
 				"description",
-				"create_time",
+				"created_at",
 			])
 			.orderBy("id", "desc");
 
@@ -61,7 +61,7 @@ export default class NewsController extends BaseController {
 					"thumbnail",
 					"title",
 					"description",
-					"create_time",
+					"created_at",
 				])
 				.limit(3)
 				.orderBy("id", "desc")
@@ -94,7 +94,7 @@ export default class NewsController extends BaseController {
 					description: req.body.description,
 					body: req.body.body,
 					user_id: req.user?.id,
-					create_time: new Date().toISOString().slice(0, 19).replace("T", " "),
+					created_at: new Date().toISOString().slice(0, 19).replace("T", " "),
 				});
 
 			res.status(201).send(successResponse([]));

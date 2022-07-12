@@ -8,7 +8,7 @@ export const createNewsValidator = object({
 		title: string().required(),
 		description: string().required(),
 		body: string(),
-		create_time: string(),
+		created_at: string(),
 		updated_at: string(),
 	}),
 });
@@ -21,7 +21,7 @@ export const updateNewsValidator = object({
 		title: string().required(),
 		description: string().required(),
 		body: string(),
-		create_time: string(),
+		created_at: string(),
 		updated_at: string(),
 	}),
 });

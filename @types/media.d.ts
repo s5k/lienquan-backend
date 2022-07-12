@@ -18,7 +18,7 @@ declare module "knex/types/tables" {
 			MediaInterface,
 			// the first params required to insert the data, and the second neither.
 			Pick<MediaInterface, "is_video" | "name" | "link"> &
-				Partial<Pick<MediaInterface, "create_time" | "updated_at">>,
+				Partial<Pick<MediaInterface, "created_at" | "updated_at">>,
 			// this line allow you update all fields, except "id" field
 			Partial<Omit<MediaInterface, "id">>
 		>;

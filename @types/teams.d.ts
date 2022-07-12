@@ -24,7 +24,7 @@ declare module "knex/types/tables" {
 				TeamsInterface,
 				"region" | "logo" | "name" | "description" | "video_link" | "code"
 			> &
-				Partial<Pick<TeamsInterface, "create_time" | "updated_at">>,
+				Partial<Pick<TeamsInterface, "created_at" | "updated_at">>,
 			// this line allow you update all fields, except "id" field
 			Partial<Omit<TeamsInterface, "id">>
 		>;

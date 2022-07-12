@@ -9,7 +9,7 @@ export default class TeamsModel extends BaseModel {
 		"description",
 		"video_link",
 		"code",
-		"create_time",
+		"created_at",
 		"updated_at",
 	];
 }
