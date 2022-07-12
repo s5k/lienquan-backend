@@ -6,14 +6,22 @@ import BaseController from "./base.controller";
 import { UserExpress } from "../@types/express";
 import forgotPasswordQueue from "../queues/forgotPassword.queue";
 import { config } from "../../config/environment";
-import { Inject } from "../decorators/classes/inject.classes";
 import UsersModel from "../models/users.model";
+import Controller from "../decorators/classes/controller.classes";
+import { Post, Put } from "../decorators/methods/routes.methods";
+import { validate } from "../middlewares/validators/wrapper.validator";
+import { loginValidator } from "../middlewares/validators/login.validations";
+import { emailValidator } from "../middlewares/validators/email.validations";
+import { resetPassword } from "../middlewares/validators/resetPassword.validations";
 
-class AuthenticationController extends BaseController {
-	@Inject("UsersModel")
-	protected model!: UsersModel;
+@Controller("auth")
+export default class AuthenticationController extends BaseController {
+	constructor(protected model: UsersModel) {
+		super();
+	}
 
-	login = async (req: Request, res: Response): Promise<void> => {
+	@Post("/login", { before: [validate(loginValidator)] })
+	public async login(req: Request, res: Response): Promise<void> {
 		try {
 			const user = await this.model
 				.getQueryBuilder()
@@ -61,9 +69,10 @@ class AuthenticationController extends BaseController {
 
 			res.status(400).send(failResponse("Tài khoản hoặc mật khẩu không đúng!"));
 		}
-	};
+	}
 
-	refreshJwtToken = async (req: Request, res: Response) => {
+	@Post("/refresh_token")
+	public async refreshJwtToken(req: Request, res: Response) {
 		try {
 			const payload = await Jwt.verify(
 				req.body.refresh_token,
@@ -96,13 +105,12 @@ class AuthenticationController extends BaseController {
 				);
 			}
 		} catch (error) {
-			console.log(error);
-
 			res.status(400).send(failResponse("Không thể khởi tạo Token!"));
 		}
-	};
+	}
 
-	forgotPassword = async (req: Request, res: Response) => {
+	@Post("/forgot_password", { before: [validate(emailValidator)] })
+	public async forgotPassword(req: Request, res: Response) {
 		try {
 			const { email } = req.body;
 			const queueForgotPassword = forgotPasswordQueue();
@@ -136,9 +144,10 @@ class AuthenticationController extends BaseController {
 					])
 				);
 		}
-	};
+	}
 
-	resetPassword = async (req: Request, res: Response) => {
+	@Put("/reset_password", { before: [validate(resetPassword)] })
+	public async resetPassword(req: Request, res: Response) {
 		try {
 			const { new_password, token } = req.body;
 			const payload = await Jwt.verify(token, config.APP_KEY as string);
@@ -156,7 +165,5 @@ class AuthenticationController extends BaseController {
 		} catch (error) {
 			res.status(400).send(failResponse("Thay đổi mật khẩu thất bại!"));
 		}
-	};
+	}
 }
-
-export default () => new AuthenticationController();

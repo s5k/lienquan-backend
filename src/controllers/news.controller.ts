@@ -1,14 +1,26 @@
 import { Request, Response } from "express";
-import { Inject } from "../decorators/classes/inject.classes";
+import { ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
+import Controller from "../decorators/classes/controller.classes";
+import { Delete, Get, Post, Put } from "../decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
+import authenticationMiddleware from "../middlewares/authentication.middleware";
+import {
+	createNewsValidator,
+	updateNewsValidator,
+} from "../middlewares/validators/news.validations";
+import { validate } from "../middlewares/validators/wrapper.validator";
 import NewsModel from "../models/news.model";
 import BaseController from "./base.controller";
 
-class NewsController extends BaseController {
-	@Inject("NewsModel")
-	protected model!: NewsModel;
+@Controller("news")
+export default class NewsController extends BaseController {
+	constructor(protected model: NewsModel) {
+		super();
+	}
 
-	index = async (req: Request, res: Response): Promise<void> => {
+	@Get("/")
+	public async index(req: Request, res: Response): Promise<void> {
 		const listNews = await this.model
 			.getQueryBuilder()
 			.table("news")
@@ -23,9 +35,10 @@ class NewsController extends BaseController {
 			.orderBy("id", "desc");
 
 		res.send(successResponse(listNews));
-	};
+	}
 
-	detail = async (req: Request, res: Response): Promise<void> => {
+	@Get("/:id")
+	public async detail(req: Request, res: Response): Promise<void> {
 		try {
 			const post: any = await this.model
 				.getQueryBuilder()
@@ -59,9 +72,12 @@ class NewsController extends BaseController {
 		} catch (error) {
 			res.status(404).send(failResponse("Không thể tìm thấy bài đăng!"));
 		}
-	};
+	}
 
-	create = async (req: Request, res: Response): Promise<void> => {
+	@Post("/", {
+		before: [authenticationMiddleware, validate(createNewsValidator)],
+	})
+	public async create(req: Request, res: Response): Promise<void> {
 		try {
 			await this.model
 				.getQueryBuilder()
@@ -82,7 +98,23 @@ class NewsController extends BaseController {
 
 			res.send(failResponse("Không thể cập nhật tin tức!"));
 		}
-	};
-}
+	}
 
-export default () => new NewsController();
+	@Put("/:id", {
+		before: [authenticationMiddleware, validate(updateNewsValidator)],
+	})
+	public async update(
+		req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+		res: Response<any, Record<string, any>>
+	): Promise<void> {
+		super.update(req, res);
+	}
+
+	@Delete("/:id", { before: [authenticationMiddleware] })
+	public async destroy(
+		req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+		res: Response<any, Record<string, any>>
+	): Promise<void> {
+		super.destroy(req, res);
+	}
+}

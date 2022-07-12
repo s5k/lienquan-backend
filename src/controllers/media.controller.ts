@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
-import { Inject } from "../decorators/classes/inject.classes";
+import Controller from "../decorators/classes/controller.classes";
+import { Get } from "../decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
 import MediaModel from "../models/media.model";
 import BaseController from "./base.controller";
 
-class MediaController extends BaseController {
-	@Inject("MediaModel")
-	protected model!: MediaModel;
+@Controller("media")
+export default class MediaController extends BaseController {
+	constructor(protected model: MediaModel) {
+		super();
+	}
 
-	index = async (req: Request, res: Response): Promise<void> => {
+	@Get("/")
+	public async index(req: Request, res: Response): Promise<void> {
 		try {
 			const medias = await this.model
 				.getQueryBuilder()
@@ -36,7 +40,5 @@ class MediaController extends BaseController {
 		} catch (error) {
 			res.status(400).send(failResponse("Không thể tải dữ liệu Media"));
 		}
-	};
+	}
 }
-
-export default () => new MediaController();

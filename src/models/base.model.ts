@@ -1,27 +1,17 @@
 import _ from "lodash";
 import { db } from "../../config/knex";
-import { Injectable } from "../decorators/classes/injectable.classes";
 
 enum PrepareTypeEnum {
 	CREATE_NEW,
 	UPDATE,
 }
 
-@Injectable("BaseModel")
-export default class BaseModel {
-	protected tableName: string;
+export default abstract class BaseModel {
+	protected abstract tableName: string;
 
-	protected fillable: string[];
+	protected abstract fillable: string[];
 
-	/**
-	 * constructor
-	 */
-	constructor(tableName: string, fillable: string[]) {
-		this.tableName = tableName;
-		this.fillable = fillable;
-	}
-
-	private prepareFields(data: any, type: PrepareTypeEnum | null = null) {
+	protected prepareFields(data: any, type: PrepareTypeEnum | null = null) {
 		if (Array.isArray(data)) {
 			data = data.map((row) => {
 				if (

@@ -1,15 +1,22 @@
 import { Request, Response } from "express";
 import { SettingInterface } from "../@types/settings";
-import { Inject } from "../decorators/classes/inject.classes";
+import Controller from "../decorators/classes/controller.classes";
+import { Get, Patch } from "../decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
+import authenticationMiddleware from "../middlewares/authentication.middleware";
+import { settingsValidator } from "../middlewares/validators/settings.validations";
+import { validate } from "../middlewares/validators/wrapper.validator";
 import SettingsModel from "../models/settings.model";
 import BaseController from "./base.controller";
 
-class HomepageController extends BaseController {
-	@Inject("SettingsModel")
-	protected model!: SettingsModel;
+@Controller("homepage")
+export default class HomepageController extends BaseController {
+	constructor(protected model: SettingsModel) {
+		super();
+	}
 
-	index = async (req: Request, res: Response): Promise<void> => {
+	@Get("/")
+	public async index(req: Request, res: Response): Promise<void> {
 		this.model
 			.getQueryBuilder()
 			.table("settings")
@@ -24,9 +31,12 @@ class HomepageController extends BaseController {
 				res.send(successResponse(data));
 			})
 			.catch((error) => res.send(failResponse("Không thể truy cập dữ liệu!")));
-	};
+	}
 
-	update = async (req: Request, res: Response): Promise<void> => {
+	@Patch("/", {
+		before: [authenticationMiddleware, validate(settingsValidator)],
+	})
+	public async update(req: Request, res: Response): Promise<void> {
 		try {
 			const listData: SettingInterface[] = req.body.data;
 			const executeSqls = [];
@@ -49,7 +59,5 @@ class HomepageController extends BaseController {
 
 			res.status(400).send(failResponse("Không thể cập nhật!"));
 		}
-	};
+	}
 }
-
-export default () => new HomepageController();

@@ -2,9 +2,18 @@ import { Request, Response } from "express";
 import BaseController from "./base.controller";
 import { UploadedFile } from "express-fileupload";
 import { failResponse, successResponse } from "../helpers/methods";
+import Controller from "../decorators/classes/controller.classes";
+import { Post } from "../decorators/methods/routes.methods";
+import { validate } from "../middlewares/validators/wrapper.validator";
+import { uploadImageValidator } from "../middlewares/validators/uploadImage.validations";
+import authenticationMiddleware from "../middlewares/authentication.middleware";
 
-class uploadFile extends BaseController {
-	uploadImage = async (req: Request, res: Response) => {
+@Controller("files")
+export default class UploadFileController extends BaseController {
+	@Post("/upload_image", {
+		before: [authenticationMiddleware, validate(uploadImageValidator)],
+	})
+	public async uploadImage(req: Request, res: Response) {
 		try {
 			const attachment = req.files?.attachment as UploadedFile;
 			const timeUploaded = Math.round(new Date().getTime() / 1000).toString();
@@ -20,7 +29,5 @@ class uploadFile extends BaseController {
 
 			res.status(400).send(failResponse("Không thể tải hình lên!"));
 		}
-	};
+	}
 }
-
-export default () => new uploadFile();

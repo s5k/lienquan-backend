@@ -1,5 +1,6 @@
-import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-@Injectable("EventsModel", ["events", ["link", "thumbnail", "title"]])
-export default class Events extends BaseModel {}
+export default class EventsModel extends BaseModel {
+	protected tableName: string = "events";
+	protected fillable: string[] = ["link", "thumbnail", "title"];
+}

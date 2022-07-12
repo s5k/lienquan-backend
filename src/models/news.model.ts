@@ -1,9 +1,8 @@
-import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-@Injectable("NewsModel", [
-	"news",
-	[
+export default class NewsModel extends BaseModel {
+	protected tableName: string = "news";
+	protected fillable: string[] = [
 		"user_id",
 		"is_hot_news",
 		"thumbnail",
@@ -12,6 +11,5 @@ import BaseModel from "./base.model";
 		"body",
 		"create_time",
 		"updated_at",
-	],
-])
-export default class NewsModel extends BaseModel {}
+	];
+}

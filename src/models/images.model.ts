@@ -1,5 +1,6 @@
-import { Injectable } from "../decorators/classes/injectable.classes";
 import BaseModel from "./base.model";
 
-@Injectable("ImagesModel", ["images", ["media_id", "path"]])
-export default class ImagesModel extends BaseModel {}
+export default class ImagesModel extends BaseModel {
+	protected tableName: string = "images";
+	protected fillable: string[] = ["media_id", "path"];
+}
