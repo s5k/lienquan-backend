@@ -3,6 +3,7 @@ import Jwt from "jsonwebtoken";
 import { config } from "../../../config/environment";
 import mail from "../../../config/mail";
 import { redisConfig } from "../../../config/redis";
+import { QUEUE_FORGOT_PASSWORD } from "../forgotPassword.queue";
 
 /**
  * For example I didn't have the UI for Reset Password,
@@ -28,14 +29,14 @@ async function sendMailForgotPassword(job: Job) {
 }
 
 const forgotPasswordQueue = new Worker(
-	"forgot_password",
+	QUEUE_FORGOT_PASSWORD,
 	sendMailForgotPassword,
 	{
 		connection: redisConfig,
 	}
 );
 
-const forgotPasswordQueueScheduler = new QueueScheduler("forgot_password", {
+const forgotPasswordQueueScheduler = new QueueScheduler(QUEUE_FORGOT_PASSWORD, {
 	connection: redisConfig,
 });
 

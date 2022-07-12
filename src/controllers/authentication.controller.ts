@@ -3,12 +3,12 @@ import Jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { failResponse, successResponse } from "../helpers/methods";
 import BaseController from "./base.controller";
-import { UserExpress } from "../@types/express";
-import forgotPasswordQueue from "../queues/forgotPassword.queue";
+import { UserExpress } from "../../@types/express";
+import { ForgotPasswordQueue } from "../queues/forgotPassword.queue";
 import { config } from "../../config/environment";
 import UsersModel from "../models/users.model";
-import Controller from "../decorators/classes/controller.classes";
-import { Post, Put } from "../decorators/methods/routes.methods";
+import Controller from "../../@decorators/classes/controller.classes";
+import { Post, Put } from "../../@decorators/methods/routes.methods";
 import { validate } from "../middlewares/validators/wrapper.validator";
 import { loginValidator } from "../middlewares/validators/login.validations";
 import { emailValidator } from "../middlewares/validators/email.validations";
@@ -113,7 +113,7 @@ export default class AuthenticationController extends BaseController {
 	public async forgotPassword(req: Request, res: Response) {
 		try {
 			const { email } = req.body;
-			const queueForgotPassword = forgotPasswordQueue();
+			const queueForgotPassword = ForgotPasswordQueue;
 			const user = await this.model
 				.getQueryBuilder()
 				.table("users")

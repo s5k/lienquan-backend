@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import Controller from "../decorators/classes/controller.classes";
-import { Delete, Get, Post, Put } from "../decorators/methods/routes.methods";
+import Controller from "../../@decorators/classes/controller.classes";
+import {
+	Delete,
+	Get,
+	Post,
+	Put,
+} from "../../@decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import {

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Controller from "../decorators/classes/controller.classes";
-import { Get } from "../decorators/methods/routes.methods";
+import Controller from "../../@decorators/classes/controller.classes";
+import { Get } from "../../@decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
 import MediaModel from "../models/media.model";
 import BaseController from "./base.controller";

@@ -1,7 +1,7 @@
 import Jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { failResponse } from "../helpers/methods";
-import { UserExpress } from "../@types/express";
+import { UserExpress } from "../../@types/express";
 import { config } from "../../config/environment";
 
 const authenticationMiddleware = async (

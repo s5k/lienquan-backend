@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { SettingInterface } from "../@types/settings";
-import Controller from "../decorators/classes/controller.classes";
-import { Get, Patch } from "../decorators/methods/routes.methods";
+import { SettingInterface } from "../../@types/settings";
+import Controller from "../../@decorators/classes/controller.classes";
+import { Get, Patch } from "../../@decorators/methods/routes.methods";
 import { failResponse, successResponse } from "../helpers/methods";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 import { settingsValidator } from "../middlewares/validators/settings.validations";

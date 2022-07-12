@@ -5,8 +5,8 @@ import errorMiddleware from "./src/middlewares/error.middleware";
 import express from "express";
 import cors from "cors";
 import processFileUpload from "express-fileupload";
-import "./src/queues/workers/worker.queue";
 import { generateRoutes } from "./src/helpers/routes";
+import "./src/queues/workers";
 
 import HomepageController from "./src/controllers/homepage.controller";
 import EventsController from "./src/controllers/events.controller";

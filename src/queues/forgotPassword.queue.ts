@@ -1,15 +1,15 @@
 import { Queue } from "bullmq";
 import { redisConfig } from "../../config/redis";
 
-export default (): Queue => {
-	return new Queue("forgot_password", {
-		defaultJobOptions: {
-			attempts: 3,
-			backoff: {
-				type: "exponential",
-				delay: 1000,
-			},
+export const QUEUE_FORGOT_PASSWORD = "forgot_password";
+
+export const ForgotPasswordQueue = new Queue(QUEUE_FORGOT_PASSWORD, {
+	defaultJobOptions: {
+		attempts: 3,
+		backoff: {
+			type: "exponential",
+			delay: 1000,
 		},
-		connection: redisConfig,
-	});
-};
+	},
+	connection: redisConfig,
+});

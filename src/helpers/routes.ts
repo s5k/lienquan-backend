@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 import {
 	RequestMethod,
 	RouteDefinition,
-} from "../decorators/methods/routes.methods";
+} from "../../@decorators/methods/routes.methods";
 
 export const generateRoutes = (
 	app: Express | Router | any,
