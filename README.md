@@ -1,10 +1,10 @@
 # Liên Quân Backend
 
-This repository is writing for Arena of Valor International Championship 2019, to get data via API and Admin modification of the data.
+This repository is writing for Arena of Valor International Championship 2019, to get data via API and Admin can modification of the data via API provided.
 
 ## Description
 
-In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication), Model-Controller design pattern, and used Bullmq to manage Queue data.
+In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication), Model-Service-Controller design pattern, and used Bullmq to manage Queue data.
 
 ## Requiments
 
@@ -33,7 +33,7 @@ In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication
 - [x] Implement Controller use Decorator
 - [x] Implement Service Providers
 - [x] Implement Cache Decorator use Redis
-- [ ] Use Decorators of Typescript for more readable and reusable
+- [x] Use Decorators of Typescript for more readable and reusable
 
 ## Contributing
 
