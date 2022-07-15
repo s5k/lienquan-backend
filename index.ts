@@ -7,6 +7,7 @@ import cors from "cors";
 import processFileUpload from "express-fileupload";
 import { generateRoutes } from "./src/helpers/routes";
 import "./src/queues/workers";
+import "./providers";
 
 import HomepageController from "./src/controllers/homepage.controller";
 import EventsController from "./src/controllers/events.controller";

@@ -8,56 +8,29 @@ import { settingsValidator } from "../middlewares/validators/settings.validation
 import { validate } from "../middlewares/validators/wrapper.validator";
 import SettingsModel from "../models/settings.model";
 import BaseController from "./base.controller";
+import InterfaceHomePageService from "../services/HomePageService/InterfaceHomePage.service";
+import { inject } from "tsyringe";
 
 @Controller("homepage")
 export default class HomepageController extends BaseController {
-	constructor(protected model: SettingsModel) {
+	constructor(
+		@inject("InterfaceHomePageService")
+		protected service: InterfaceHomePageService
+	) {
 		super();
 	}
 
 	@Get("/")
 	public async index(req: Request, res: Response): Promise<void> {
-		this.model
-			.getQueryBuilder()
-			.table("settings")
-			.select("key", "value")
-			.whereIn("key", ["logo_src", "introduce_text", "watch_now_url"])
-			.then((rows: SettingInterface[]) => {
-				const data: any = {};
-				for (const row of rows) {
-					data[row.key] = row.value;
-				}
-
-				res.send(successResponse(data));
-			})
-			.catch((error) => res.send(failResponse("Không thể truy cập dữ liệu!")));
+		const response = await this.service.index();
+		res.status(response.status ? 200 : 400).send(response);
 	}
 
 	@Patch("/", {
 		before: [authenticationMiddleware, validate(settingsValidator)],
 	})
 	public async update(req: Request, res: Response): Promise<void> {
-		try {
-			const listData: SettingInterface[] = req.body.data;
-			const executeSqls = [];
-
-			for (const data of listData) {
-				executeSqls.push(
-					this.model
-						.getQueryBuilder()
-						.table("settings")
-						.update({ value: data.value })
-						.where({ key: data.key })
-				);
-			}
-
-			await Promise.all(executeSqls);
-
-			res.send(successResponse([]));
-		} catch (error) {
-			console.log(error);
-
-			res.status(400).send(failResponse("Không thể cập nhật!"));
-		}
+		const response = await this.service.update(req.body.data);
+		res.status(response.status ? 201 : 400).send(response);
 	}
 }

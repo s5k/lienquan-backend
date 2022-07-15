@@ -7,27 +7,26 @@ import { Post } from "../../@decorators/methods/routes.methods";
 import { validate } from "../middlewares/validators/wrapper.validator";
 import { uploadImageValidator } from "../middlewares/validators/uploadImage.validations";
 import authenticationMiddleware from "../middlewares/authentication.middleware";
+import { inject } from "tsyringe";
+import InterfaceUploadFileService from "../services/UploadFileService/InterfaceUploadFile.service";
 
 @Controller("files")
 export default class UploadFileController extends BaseController {
+	constructor(
+		@inject("InterfaceUploadFileService")
+		protected service: InterfaceUploadFileService
+	) {
+		super();
+	}
+
 	@Post("/upload_image", {
 		before: [authenticationMiddleware, validate(uploadImageValidator)],
 	})
 	public async uploadImage(req: Request, res: Response) {
-		try {
-			const attachment = req.files?.attachment as UploadedFile;
-			const timeUploaded = Math.round(new Date().getTime() / 1000).toString();
-			const filePath =
-				`upload/images/${timeUploaded}_${attachment.name}`.replace(" ", "_");
-			const uploadPath = `${__dirname}/../../public/${filePath}`;
+		const response = await this.service.uploadImage(
+			req.files?.attachment as UploadedFile
+		);
 
-			await attachment.mv(uploadPath);
-
-			res.status(201).send(successResponse([filePath]));
-		} catch (error) {
-			console.log(error);
-
-			res.status(400).send(failResponse("Không thể tải hình lên!"));
-		}
+		res.status(response.status ? 201 : 400).send(response);
 	}
 }

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { failResponse, successResponse } from "../helpers/methods";
-import BaseModel from "../models/base.model";
+import InterfaceBaseService from "../services/InterfaceBase.service";
 
 export default abstract class BaseController {
-	protected model?: BaseModel;
+	protected service?: InterfaceBaseService;
 
 	/**
 	 * index
@@ -17,9 +17,13 @@ export default abstract class BaseController {
 	 */
 	public async create(req: Request, res: Response) {
 		try {
-			await this.model?.create(req.body);
+			const response = await this.service?.create(req.body);
 
-			res.status(201).send(successResponse([]));
+			if (response?.status) {
+				res.status(201).send(response);
+			} else {
+				res.status(400).send(response);
+			}
 		} catch (error) {
 			console.error(error);
 			res.status(400).send(failResponse("Không thể tạo mới!"));
@@ -31,9 +35,15 @@ export default abstract class BaseController {
 	 */
 	public async update(req: Request, res: Response) {
 		try {
-			await this.model?.update(req.body, { id: req.params.id });
+			const response = await this.service?.update(req.body, {
+				id: req.params.id,
+			});
 
-			res.status(202).send(successResponse([]));
+			if (response?.status) {
+				res.status(201).send(response);
+			} else {
+				res.status(400).send(response);
+			}
 		} catch (error) {
 			console.error(error);
 			res.status(400).send(failResponse("Không thể cập nhật!"));
@@ -45,9 +55,15 @@ export default abstract class BaseController {
 	 */
 	public async destroy(req: Request, res: Response) {
 		try {
-			await this.model?.destroy({ id: req.params.id });
+			const response = await this.service?.destroy({
+				id: req.params.id,
+			});
 
-			res.status(204).send(successResponse([]));
+			if (response?.status) {
+				res.status(201).send(response);
+			} else {
+				res.status(400).send(response);
+			}
 		} catch (error) {
 			console.error(error);
 			res.status(400).send(failResponse("Không thể xóa!"));
