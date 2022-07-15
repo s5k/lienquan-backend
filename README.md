@@ -32,6 +32,7 @@ In this project I used Knex (Query Builder), MySQL, JsonWebToken (Authentication
 - [x] Implement Dependency Injection use Decorator
 - [x] Implement Controller use Decorator
 - [x] Implement Service Providers
+- [x] Implement Cache Decorator use Redis
 - [ ] Use Decorators of Typescript for more readable and reusable
 
 ## Contributing
